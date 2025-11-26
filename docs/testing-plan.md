@@ -1,6 +1,6 @@
 # Testing Plan — Assignment 3
 
-This document captures the manual checks performed for the advanced features introduced in Assignment 3. All tests were executed on Chrome 121 (Windows 11) unless noted otherwise.
+This document captures the manual checks performed for the advanced features introduced in Assignment 3.
 
 | # | Area | Scenario | Steps | Expected Result |
 |---|------|----------|-------|-----------------|
@@ -15,4 +15,3 @@ This document captures the manual checks performed for the advanced features int
 | 9 | Lazy images | Performance | Open DevTools Network tab (Slow 3G), reload and watch image requests while scrolling to Projects. | Project images start downloading only when near viewport, confirming lazy loading. |
 | 10 | Contact form | Validation + toast | Submit empty form, then fill valid data and submit. | Browser validation prevents empty submit; with valid data a success toast appears and form resets. |
 
-> For automated evidence, capture screenshots/videos of key scenarios above and attach them to the submission package as needed.
