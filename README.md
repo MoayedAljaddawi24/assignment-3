@@ -76,6 +76,11 @@ Show mastery of external integrations, richer UI state, and improved documentati
 - The new **“Favorites only”** control layers onto existing filters/search, demonstrating richer state + multi-step logic.
 - Favorite buttons expose accessible state (`aria-pressed`, icon swap), and the empty-state messaging adapts based on whether the filter is active.
 
+#### Intelligent Project Sorting
+- Added a **“Sort projects”** dropdown that reorders cards without a full reload.
+- Options include **Recently updated** (based on `data-date`) and **Alphabetical** (card title).
+- Sorting works alongside filters, search, and favorites, showcasing combined state management.
+
 #### State & UX Enhancements
 - Global navigation now links to the GitHub section for faster access.
 - Project favorites persist between visits, and the favorites-only toggle combines with filters/search for complex browsing logic.
@@ -101,6 +106,12 @@ Show mastery of external integrations, richer UI state, and improved documentati
 3. Refresh the page:
    - Favorited projects remain starred (data persisted in `localStorage`).
 4. Remove a favorite; verify it disappears while “Favorites only” is active, demonstrating dynamic filtering.
+
+### Testing Project Sorting
+1. With multiple projects displayed, open the **Sort projects** dropdown.
+2. Choose **Alphabetical** — cards should reorder immediately (A→Z by title).
+3. Switch back to **Recently updated** — cards reorder based on their `data-date` metadata.
+4. Apply category filters, a search term, and/or favorites-only; verify the sort order respects those constraints while staying consistent.
 
 ---
 

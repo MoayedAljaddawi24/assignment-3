@@ -107,6 +107,14 @@
           <button class="filter-btn" data-category="java">Java</button>
         </div>
 
+        <label class="sort-select">
+          <span class="visually-hidden">Sort projects</span>
+          <select id="projectSort" aria-label="Sort projects">
+            <option value="recent" selected>Recently updated</option>
+            <option value="alpha">Alphabetical</option>
+          </select>
+        </label>
+
         <label class="search-wrap">
           <span class="visually-hidden">Search projects</span>
           <input id="projectSearch" type="search" placeholder="Search projects…" />
@@ -121,7 +129,7 @@
 
       <div class="projects-grid">
 
-        <article class="card" data-id="reservation-app" data-tags="java">
+        <article class="card" data-id="reservation-app" data-tags="java" data-date="2024-02-12">
           <img src="assets/images/reservation.png" alt="Screenshot of the Event Ticket Reservation System interface" class="card-img">
           <div class="card-body">
             <h3>Event Ticket Reservation System</h3>
@@ -150,7 +158,7 @@
           </div>
         </article>
 
-        <article class="card" data-id="kfupm-event-hub" data-tags="html css javascript">
+        <article class="card" data-id="kfupm-event-hub" data-tags="html css javascript" data-date="2024-04-05">
           <img src="assets/images/kfupm-event-hub.png" alt="Screenshot of the KFUPM Event Hub website layout" class="card-img">
           <div class="card-body">
             <h3>KFUPM Event Hub <span class="badge">In Progress</span></h3>

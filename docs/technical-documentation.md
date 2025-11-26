@@ -72,10 +72,16 @@
 - Filtering now evaluates three axes simultaneously: category buttons, live search query, and favorites-only mode.
 - Empty-state messaging adapts based on whether the favorites filter is active, guiding the user to star items or broaden the view.
 
+### Project Sorting
+- Introduced a **Sort projects** dropdown with `recent` (default) and `alpha` options.
+- Uses `data-date` metadata plus card titles to reorder DOM nodes without losing event bindings.
+- Sorting runs alongside filters/search/favorites, ensuring complex state combinations remain predictable.
+
 ### UI & State Tweaks
 - Navigation now links to the GitHub section for quick access.
 - Utility classes introduced for shared patterns (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`).
 - New `.favorites-toggle` control styling + `.favorite-btn` state styles preserve consistency with existing tokens.
+- `.sort-select` shares the same tokenized styling as other inputs so the dropdown is legible in both themes.
 - Styles respect the existing design tokens (light/dark themes, spacing, radii).
 - Status text toggles an `.error` modifier to improve contrast for failure messages.
 
@@ -83,8 +89,8 @@
 | File | Purpose |
 |------|---------|
 | `index.html` | Added GitHub section markup, nav anchor, and control elements |
-| `css/styles.css` | Added utility classes, spinner animation, GitHub + favorites styles |
-| `js/script.js` | Implemented GitHub fetch/caching/sorting logic, retry handling, and favorites persistence/filtering |
+| `css/styles.css` | Added utility classes, spinner animation, GitHub + favorites + sorting styles |
+| `js/script.js` | Implemented GitHub fetch/caching/sorting logic, retry handling, favorites persistence/filtering, and project sorting |
 | `README.md` | Documented Assignment 3 objective, features, and manual testing plan |
 
 ### Testing & Validation
@@ -94,5 +100,6 @@
 4. Go offline (DevTools) and click Refresh — verify cached data remains and Retry button appears.
 5. Return online, click Retry — confirm new data appears and status updates accordingly.
 6. Favorite/unfavorite projects, enable “Favorites only,” and reload to verify persistence + layered filtering.
+7. Change the Sort dropdown between “Recently updated” and “Alphabetical” while other filters/search states are active to confirm ordering holds.
 
 **Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.

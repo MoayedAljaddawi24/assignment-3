@@ -117,10 +117,12 @@
 (function projectFilters() {
   const buttons = document.querySelectorAll('.filter-btn');
   const cards = Array.from(document.querySelectorAll('.projects-grid .card'));
+  const grid = document.querySelector('.projects-grid');
   const search = document.getElementById('projectSearch');
   const empty = document.getElementById('projectsEmpty');
   const favoritesToggle = document.getElementById('favoritesOnly');
   const favoritesCount = document.getElementById('favoritesCount');
+  const sortSelect = document.getElementById('projectSort');
   if (!cards.length) return;
 
   const FAVORITES_KEY = 'favorite_projects_v1';
@@ -168,6 +170,11 @@
 
   search?.addEventListener('input', (e) => {
     query = e.target.value.trim().toLowerCase();
+    apply();
+  });
+
+  sortSelect?.addEventListener('change', () => {
+    sortCards();
     apply();
   });
 
@@ -228,6 +235,25 @@
     }
   }
 
+  function sortCards() {
+    if (!grid) return;
+    const mode = sortSelect?.value || 'recent';
+    const sorted = [...cards].sort((a, b) => compareCards(a, b, mode));
+    sorted.forEach(card => grid.appendChild(card));
+  }
+
+  function compareCards(a, b, mode) {
+    if (mode === 'alpha') {
+      const nameA = a.querySelector('h3')?.textContent.trim() || '';
+      const nameB = b.querySelector('h3')?.textContent.trim() || '';
+      return nameA.localeCompare(nameB);
+    }
+    const dateA = new Date(a.dataset.date || 0);
+    const dateB = new Date(b.dataset.date || 0);
+    return dateB - dateA;
+  }
+
+  sortCards();
   attachFavoriteButtons();
   updateFavoriteUI();
   apply();
