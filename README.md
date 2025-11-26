@@ -71,8 +71,14 @@ Show mastery of external integrations, richer UI state, and improved documentati
 - Resilient UX: cached results (`sessionStorage`, 10‑minute window), loading spinner, friendly status text, and retry button for failures.
 - Repository cards display description, language, star count, last updated date, and a CTA to open the repo in a new tab.
 
+#### Favorites-Driven Project Browser
+- Each portfolio project can be marked as a **favorite** via a toggle button stored in `localStorage`.
+- The new **“Favorites only”** control layers onto existing filters/search, demonstrating richer state + multi-step logic.
+- Favorite buttons expose accessible state (`aria-pressed`, icon swap), and the empty-state messaging adapts based on whether the filter is active.
+
 #### State & UX Enhancements
 - Global navigation now links to the GitHub section for faster access.
+- Project favorites persist between visits, and the favorites-only toggle combines with filters/search for complex browsing logic.
 - Controls maintain their state; cached responses keep the UI usable while offline or rate-limited.
 - Shared utility styles (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`) keep the new section consistent with the rest of the site.
 
@@ -87,6 +93,14 @@ Show mastery of external integrations, richer UI state, and improved documentati
 4. Re-enable the network, click **Retry**, and confirm fresh data loads without reloading the page.
 
 > Tip: If the GitHub API rate-limits you, wait a minute or supply a personal token via the console by setting `sessionStorage.githubToken`.
+
+### Testing the Favorites Workflow
+1. Scroll to **Projects** and click the star button on a card — it should fill and the badge count increments.
+2. Toggle **Favorites only**:
+   - Only starred projects remain visible, and the empty-state text updates if none match.
+3. Refresh the page:
+   - Favorited projects remain starred (data persisted in `localStorage`).
+4. Remove a favorite; verify it disappears while “Favorites only” is active, demonstrating dynamic filtering.
 
 ---
 
@@ -109,4 +123,3 @@ Show mastery of external integrations, richer UI state, and improved documentati
 ## Projects
 - **Event Ticket Reservation System** — browse events, reserve tickets, view bookings.
 - **KFUPM Event Hub (In Progress)** — discover, register for, and manage university events.
-

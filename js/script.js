@@ -119,10 +119,15 @@
   const cards = Array.from(document.querySelectorAll('.projects-grid .card'));
   const search = document.getElementById('projectSearch');
   const empty = document.getElementById('projectsEmpty');
+  const favoritesToggle = document.getElementById('favoritesOnly');
+  const favoritesCount = document.getElementById('favoritesCount');
   if (!cards.length) return;
 
+  const FAVORITES_KEY = 'favorite_projects_v1';
+  let favorites = loadFavorites();
   let activeCategory = 'all';
   let query = '';
+  let favoritesOnly = !!favoritesToggle?.checked;
 
   function apply() {
     let visible = 0;
@@ -130,16 +135,26 @@
     cards.forEach(card => {
       const tags = (card.dataset.tags || '').toLowerCase().split(/\s+/);
       const text = card.textContent.toLowerCase();
+      const id = card.dataset.id;
+      const isFavorite = id ? favorites.has(id) : false;
 
       const matchCat = activeCategory === 'all' || tags.includes(activeCategory);
       const matchQuery = !query || text.includes(query);
+      const matchFavorite = !favoritesOnly || isFavorite;
 
-      const show = matchCat && matchQuery;
+      const show = matchCat && matchQuery && matchFavorite;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
 
-    if (empty) empty.hidden = visible !== 0;
+    if (empty) {
+      empty.hidden = visible !== 0;
+      if (favoritesOnly) {
+        empty.textContent = 'No favorite projects yet. Add some or turn off the toggle.';
+      } else {
+        empty.textContent = 'No projects found. Try a different filter or search.';
+      }
+    }
   }
 
   buttons.forEach(btn => {
@@ -156,6 +171,65 @@
     apply();
   });
 
+  favoritesToggle?.addEventListener('change', (e) => {
+    favoritesOnly = e.target.checked;
+    apply();
+  });
+
+  function attachFavoriteButtons() {
+    cards.forEach(card => {
+      const btn = card.querySelector('.favorite-btn');
+      const id = card.dataset.id;
+      if (!btn || !id) return;
+
+      btn.addEventListener('click', () => {
+        if (favorites.has(id)) {
+          favorites.delete(id);
+        } else {
+          favorites.add(id);
+        }
+        persistFavorites();
+        updateFavoriteUI();
+        apply();
+      });
+    });
+  }
+
+  function updateFavoriteUI() {
+    cards.forEach(card => {
+      const btn = card.querySelector('.favorite-btn');
+      const id = card.dataset.id;
+      if (!btn || !id) return;
+      const isFavorite = favorites.has(id);
+      btn.setAttribute('aria-pressed', String(isFavorite));
+      const icon = btn.querySelector('[aria-hidden="true"]');
+      if (icon) icon.textContent = isFavorite ? '★' : '☆';
+    });
+    if (favoritesCount) favoritesCount.textContent = String(favorites.size);
+  }
+
+  function loadFavorites() {
+    try {
+      const raw = localStorage.getItem(FAVORITES_KEY);
+      if (!raw) return new Set();
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return new Set();
+      return new Set(parsed);
+    } catch {
+      return new Set();
+    }
+  }
+
+  function persistFavorites() {
+    try {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(Array.from(favorites)));
+    } catch (err) {
+      console.warn('Unable to save favorites:', err);
+    }
+  }
+
+  attachFavoriteButtons();
+  updateFavoriteUI();
   apply();
 })();
 

@@ -66,9 +66,16 @@
 - **Caching:** results stored in `sessionStorage` (10‑minute TTL) to reduce API calls and keep data available offline/rate-limited.
 - **Rendering:** responsive card grid showing repo name, description fallback, language, star count, last updated date, and CTA link.
 
+### Favorites & Complex State Logic
+- Added a **favorite** button to each project card and a **“Favorites only”** toggle layered onto existing filters/search.
+- Favorite ids persist in `localStorage` (`favorite_projects_v1`) and hydrate on load to sync button state, badge count, and filter behavior.
+- Filtering now evaluates three axes simultaneously: category buttons, live search query, and favorites-only mode.
+- Empty-state messaging adapts based on whether the favorites filter is active, guiding the user to star items or broaden the view.
+
 ### UI & State Tweaks
 - Navigation now links to the GitHub section for quick access.
 - Utility classes introduced for shared patterns (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`).
+- New `.favorites-toggle` control styling + `.favorite-btn` state styles preserve consistency with existing tokens.
 - Styles respect the existing design tokens (light/dark themes, spacing, radii).
 - Status text toggles an `.error` modifier to improve contrast for failure messages.
 
@@ -76,8 +83,8 @@
 | File | Purpose |
 |------|---------|
 | `index.html` | Added GitHub section markup, nav anchor, and control elements |
-| `css/styles.css` | Added utility classes, spinner animation, GitHub section styles |
-| `js/script.js` | Implemented GitHub fetch/caching/sorting logic and retry handling |
+| `css/styles.css` | Added utility classes, spinner animation, GitHub + favorites styles |
+| `js/script.js` | Implemented GitHub fetch/caching/sorting logic, retry handling, and favorites persistence/filtering |
 | `README.md` | Documented Assignment 3 objective, features, and manual testing plan |
 
 ### Testing & Validation
@@ -86,6 +93,6 @@
 3. Click Refresh and watch the Network tab for the GitHub API call.
 4. Go offline (DevTools) and click Refresh — verify cached data remains and Retry button appears.
 5. Return online, click Retry — confirm new data appears and status updates accordingly.
+6. Favorite/unfavorite projects, enable “Favorites only,” and reload to verify persistence + layered filtering.
 
 **Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.
-
