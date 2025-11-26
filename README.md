@@ -87,6 +87,11 @@ Show mastery of external integrations, richer UI state, and improved documentati
 - Controls maintain their state; cached responses keep the UI usable while offline or rate-limited.
 - Shared utility styles (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`) keep the new section consistent with the rest of the site.
 
+#### Performance & Accessibility Upgrades
+- Added a prominent **Skip to main content** link for keyboard users.
+- Project imagery now uses `loading="lazy"` + `decoding="async"` to reduce LCP on scroll.
+- A `prefers-reduced-motion` media query disables transitions/spinners for motion-sensitive visitors.
+
 ### Testing the GitHub Integration
 1. Open `index.html` in a modern browser with DevTools console visible.
 2. Scroll to **Latest GitHub Activity**:
@@ -112,6 +117,11 @@ Show mastery of external integrations, richer UI state, and improved documentati
 2. Choose **Alphabetical** — cards should reorder immediately (A→Z by title).
 3. Switch back to **Recently updated** — cards reorder based on their `data-date` metadata.
 4. Apply category filters, a search term, and/or favorites-only; verify the sort order respects those constraints while staying consistent.
+
+### Testing Accessibility & Performance Tweaks
+1. Press `Tab` immediately after loading the page — focus should jump to the **Skip to main content** link, and pressing `Enter` should move focus into `<main>`.
+2. Open DevTools > Performance or Network: scroll the Projects section and confirm lazy-loaded images only request when near viewport.
+3. In your OS/browser accessibility settings, enable **Reduce Motion** (or emulate via DevTools) and reload — spinners and transitions should be removed.
 
 ---
 

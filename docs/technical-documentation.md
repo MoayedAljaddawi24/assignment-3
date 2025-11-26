@@ -77,6 +77,11 @@
 - Uses `data-date` metadata plus card titles to reorder DOM nodes without losing event bindings.
 - Sorting runs alongside filters/search/favorites, ensuring complex state combinations remain predictable.
 
+### Performance & Accessibility
+- Added a `Skip to main content` link before the header for screen-reader/keyboard navigation.
+- Project images include `loading="lazy"` and `decoding="async"` attributes to defer work until needed.
+- Implemented `@media (prefers-reduced-motion: reduce)` to effectively disable transitions/animations (including the spinner) for motion-sensitive users.
+
 ### UI & State Tweaks
 - Navigation now links to the GitHub section for quick access.
 - Utility classes introduced for shared patterns (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`).
@@ -101,5 +106,6 @@
 5. Return online, click Retry — confirm new data appears and status updates accordingly.
 6. Favorite/unfavorite projects, enable “Favorites only,” and reload to verify persistence + layered filtering.
 7. Change the Sort dropdown between “Recently updated” and “Alphabetical” while other filters/search states are active to confirm ordering holds.
+8. Tab once to reach the skip link, scroll to ensure images lazy-load, and toggle “Reduce Motion” in the OS/browser to confirm animations stop.
 
 **Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.
