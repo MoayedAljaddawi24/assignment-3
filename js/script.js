@@ -210,3 +210,182 @@
     setTimeout(() => el.remove(), 3000);
   }
 })();
+
+// 6) Assignment 3 - GitHub API integration with caching + sorting
+(function githubIntegration() {
+  const grid = document.getElementById('githubRepos');
+  const statusWrap = document.getElementById('githubStatus');
+  const statusText = statusWrap?.querySelector('.status-text');
+  const spinner = statusWrap?.querySelector('.spinner');
+  const retryBtn = document.getElementById('githubRetry');
+  const refreshBtn = document.getElementById('githubRefresh');
+  const sortSelect = document.getElementById('githubSort');
+  if (!grid || !statusWrap || !statusText) return;
+
+  const CACHE_KEY = 'github_repos_v1';
+  const CACHE_WINDOW = 1000 * 60 * 10; // 10 minutes
+  const DISPLAY_COUNT = 6;
+  const ENDPOINT = 'https://api.github.com/users/MoayedAljaddawi24/repos?sort=updated&per_page=20';
+
+  let repos = [];
+
+  init();
+
+  function init() {
+    attachEvents();
+    const cached = readCache();
+    if (cached) {
+      repos = cached.data;
+      spinner && (spinner.hidden = true);
+      setStatus(`Showing cached repositories from ${timeAgo(cached.fetchedAt)} ago.`);
+      render();
+    } else {
+      fetchRepos();
+    }
+  }
+
+  function attachEvents() {
+    sortSelect?.addEventListener('change', render);
+    refreshBtn?.addEventListener('click', () => fetchRepos(true));
+    retryBtn?.addEventListener('click', () => fetchRepos(true));
+  }
+
+  async function fetchRepos(force = false) {
+    if (!force) {
+      const cached = readCache();
+      if (cached) {
+        repos = cached.data;
+        spinner && (spinner.hidden = true);
+        setStatus(`Showing cached repositories from ${timeAgo(cached.fetchedAt)} ago.`);
+        render();
+        return;
+      }
+    }
+
+    spinner && (spinner.hidden = false);
+    setStatus('Loading repositories…');
+    retryBtn && (retryBtn.hidden = true);
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        headers: { Accept: 'application/vnd.github+json' },
+      });
+      if (!res.ok) throw new Error(`GitHub HTTP ${res.status}`);
+      const data = await res.json();
+      repos = (Array.isArray(data) ? data : [])
+        .filter(repo => !repo.fork)
+        .map(repo => ({
+          id: repo.id,
+          name: repo.name,
+          description: repo.description,
+          url: repo.html_url,
+          stars: repo.stargazers_count,
+          language: repo.language,
+          updatedAt: repo.updated_at,
+          visibility: repo.visibility,
+        }));
+      writeCache(repos);
+      render();
+      setStatus('Live data fetched just now.');
+    } catch (err) {
+      console.error('GitHub fetch failed:', err);
+      spinner && (spinner.hidden = true);
+      if (!repos.length) {
+        setStatus('Could not load repositories. Try again later.', true);
+        retryBtn && (retryBtn.hidden = false);
+      } else {
+        setStatus('Using cached repositories (live update failed).', true);
+      }
+    } finally {
+      spinner && (spinner.hidden = true);
+    }
+  }
+
+  function render() {
+    if (!repos.length) {
+      grid.innerHTML = '<p class="empty">No repositories to display yet.</p>';
+      return;
+    }
+
+    const sort = sortSelect?.value || 'updated';
+    const sorted = [...repos].sort((a, b) => {
+      if (sort === 'stars') return b.stars - a.stars;
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });
+
+    grid.innerHTML = '';
+    sorted.slice(0, DISPLAY_COUNT).forEach(repo => {
+      const article = document.createElement('article');
+      article.className = 'card repo-card';
+
+      const name = document.createElement('h3');
+      name.textContent = repo.name;
+      article.appendChild(name);
+
+      const desc = document.createElement('p');
+      desc.textContent = repo.description || 'No description provided.';
+      article.appendChild(desc);
+
+      const meta = document.createElement('div');
+      meta.className = 'repo-meta';
+      meta.innerHTML = `
+        <span>${repo.language || 'Misc'}</span>
+        <span>★ ${repo.stars}</span>
+        <span>Updated ${new Date(repo.updatedAt).toLocaleDateString()}</span>
+      `;
+      article.appendChild(meta);
+
+      const link = document.createElement('a');
+      link.href = repo.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'btn btn-sm';
+      link.textContent = 'View on GitHub';
+      article.appendChild(link);
+
+      grid.appendChild(article);
+    });
+  }
+
+  function setStatus(message, isError = false) {
+    if (statusText) statusText.textContent = message;
+    statusWrap?.classList.toggle('error', !!isError);
+  }
+
+  function readCache() {
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed?.data || Date.now() - parsed.fetchedAt > CACHE_WINDOW) {
+        sessionStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+      return parsed;
+    } catch {
+      sessionStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+  }
+
+  function writeCache(data) {
+    try {
+      sessionStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ fetchedAt: Date.now(), data })
+      );
+    } catch (err) {
+      console.warn('Unable to cache GitHub repos:', err);
+    }
+  }
+
+  function timeAgo(timestamp) {
+    const diff = Date.now() - timestamp;
+    const mins = Math.round(diff / 60000);
+    if (mins < 1) return 'moments';
+    if (mins === 1) return '1 minute';
+    if (mins < 60) return `${mins} minutes`;
+    const hours = Math.round(mins / 60);
+    return `${hours} hour${hours > 1 ? 's' : ''}`;
+  }
+})();

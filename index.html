@@ -15,6 +15,7 @@
         <a href="#hero">Hero</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#github">GitHub</a>
         <a href="#contact">Contact</a>
       </nav>
 
@@ -50,6 +51,39 @@
           <span class="quote-author"></span> 
         </div>
       </div>
+    </section>
+
+    <section id="github" class="github">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">API Integration</p>
+          <h2>Latest GitHub Activity</h2>
+          <p class="muted">
+            Pulled live from <strong>@MoayedAljaddawi24</strong> to keep this portfolio current.
+            Sort the list or refresh it to fetch the newest repositories.
+          </p>
+        </div>
+        <div class="github-controls">
+          <label>
+            <span class="visually-hidden">Sort repositories</span>
+            <select id="githubSort" aria-label="Sort repositories">
+              <option value="updated" selected>Recently updated</option>
+              <option value="stars">Most stars</option>
+            </select>
+          </label>
+          <button id="githubRefresh" class="btn btn-sm" type="button">
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div id="githubStatus" class="github-status">
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="status-text" aria-live="polite">Loading repositories…</span>
+        <button id="githubRetry" class="btn btn-sm" type="button" hidden>Retry</button>
+      </div>
+
+      <div id="githubRepos" class="github-grid" aria-live="polite"></div>
     </section>
 
     <section id="about">
