@@ -194,6 +194,43 @@
       <p id="projectsEmpty" class="empty" hidden>No projects found. Try a different filter or search.</p>
     </section>
 
+    <section id="coach" class="ai-coach">
+      <div class="coach-heading">
+        <p class="eyebrow">AI Career Coach</p>
+        <h2>Get a personalized action plan</h2>
+        <p class="muted">
+          These suggestions were generated with AI tools I used throughout the course. Choose a goal and available time to get a curated plan.
+        </p>
+      </div>
+
+      <form id="coachForm" class="coach-form">
+        <label>
+          <span>Primary focus</span>
+          <select id="coachGoal" required>
+            <option value="">Select one…</option>
+            <option value="showcase">Showcase projects</option>
+            <option value="network">Expand networking</option>
+            <option value="learn">Learn new tech</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Weekly time available</span>
+          <select id="coachTime" required>
+            <option value="">Select one…</option>
+            <option value="short">1–2 hrs</option>
+            <option value="long">5+ hrs</option>
+          </select>
+        </label>
+
+        <button class="btn btn-primary" type="submit">Generate tip</button>
+      </form>
+
+      <div id="coachOutput" class="coach-output" role="status" aria-live="polite">
+        <p class="muted">Pick a focus + time window to see AI-curated suggestions.</p>
+      </div>
+    </section>
+
 
     <section id="contact">
       <h2>Contact</h2>

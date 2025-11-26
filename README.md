@@ -50,9 +50,12 @@ assignment-3/
 ├── js/
 │   └── script.js
 ├── assets/
-│   └── images/
+│   ├── images/
+│   └── data/
+│       └── ai-insights.json
 └── docs/
     ├── ai-usage-report.md
+    ├── testing-plan.md
     └── technical-documentation.md
 ```
 
@@ -80,6 +83,11 @@ Show mastery of external integrations, richer UI state, and improved documentati
 - Added a **“Sort projects”** dropdown that reorders cards without a full reload.
 - Options include **Recently updated** (based on `data-date`) and **Alphabetical** (card title).
 - Sorting works alongside filters, search, and favorites, showcasing combined state management.
+
+#### AI Career Coach
+- New section powered by AI-generated insights curated during development.
+- Visitors pick a focus (showcase, network, learn) and available time to receive tailored action plans sourced from `assets/data/ai-insights.json`.
+- Provides multi-step guidance (headline + bullet actions) and graceful fallbacks if the dataset cannot be loaded.
 
 #### State & UX Enhancements
 - Global navigation now links to the GitHub section for faster access.
@@ -117,6 +125,12 @@ Show mastery of external integrations, richer UI state, and improved documentati
 2. Choose **Alphabetical** — cards should reorder immediately (A→Z by title).
 3. Switch back to **Recently updated** — cards reorder based on their `data-date` metadata.
 4. Apply category filters, a search term, and/or favorites-only; verify the sort order respects those constraints while staying consistent.
+
+### Testing the AI Career Coach
+1. Scroll to **AI Career Coach**, pick a focus + time, and click **Generate tip**.
+2. Confirm the tip headline, paragraph, and bullet actions update dynamically.
+3. Change the selections multiple times to see varied AI insights.
+4. Temporarily block `assets/data/ai-insights.json` (DevTools > Network > Block URL) to ensure the UI shows a graceful error.
 
 ### Testing Accessibility & Performance Tweaks
 1. Press `Tab` immediately after loading the page — focus should jump to the **Skip to main content** link, and pressing `Enter` should move focus into `<main>`.

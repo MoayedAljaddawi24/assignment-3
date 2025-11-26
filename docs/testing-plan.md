@@ -11,7 +11,8 @@ This document captures the manual checks performed for the advanced features int
 | 5 | Search + filters combo | Layered logic | Set Category to “JavaScript”, enter “hub” in search, keep Favorites off. | Only the KFUPM card remains visible; empty state stays hidden. |
 | 6 | Skip link | Keyboard navigation | Press `Tab` immediately after loading the page, press `Enter`. | Focus lands on “Skip to main content”, then moves to `<main>`. |
 | 7 | Reduced motion | Accessibility | Enable “Reduce motion” in OS (or emulate in DevTools) and reload. | Animations/spinners stop, ensuring no motion-heavy transitions. |
-| 8 | Lazy images | Performance | Open DevTools Network tab (Slow 3G), reload and watch image requests while scrolling to Projects. | Project images start downloading only when near viewport, confirming lazy loading. |
-| 9 | Contact form | Validation + toast | Submit empty form, then fill valid data and submit. | Browser validation prevents empty submit; with valid data a success toast appears and form resets. |
+| 8 | AI Career Coach | Dynamic tips | Select a focus/time combo, click **Generate tip**. Block `assets/data/ai-insights.json` to test fallback. | Tip headline/paragraph/actions update; when blocked, a friendly error message appears. |
+| 9 | Lazy images | Performance | Open DevTools Network tab (Slow 3G), reload and watch image requests while scrolling to Projects. | Project images start downloading only when near viewport, confirming lazy loading. |
+| 10 | Contact form | Validation + toast | Submit empty form, then fill valid data and submit. | Browser validation prevents empty submit; with valid data a success toast appears and form resets. |
 
 > For automated evidence, capture screenshots/videos of key scenarios above and attach them to the submission package as needed.

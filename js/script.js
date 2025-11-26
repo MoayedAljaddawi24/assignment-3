@@ -259,6 +259,76 @@
   apply();
 })();
 
+// 7) Assignment 3 - AI coach suggestions sourced from AI-written dataset
+(function aiCoach() {
+  const form = document.getElementById('coachForm');
+  const goalSelect = document.getElementById('coachGoal');
+  const timeSelect = document.getElementById('coachTime');
+  const output = document.getElementById('coachOutput');
+  if (!form || !goalSelect || !timeSelect || !output) return;
+
+  let insights = [];
+  let loadError = false;
+
+  loadInsights();
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const goal = goalSelect.value;
+    const time = timeSelect.value;
+    if (!goal || !time) {
+      showMessage('Please choose both a focus and time commitment.');
+      return;
+    }
+
+    if (loadError) {
+      showMessage('AI tips are unavailable right now. Please try again later.');
+      return;
+    }
+
+    const filtered = insights.filter(item =>
+      (item.goal === goal || item.goal === 'any') &&
+      (item.time === time || item.time === 'any')
+    );
+
+    const tip = filtered.length
+      ? filtered[Math.floor(Math.random() * filtered.length)]
+      : null;
+
+    if (!tip) {
+      showMessage('No curated plan yet for that combo. Try another option!');
+      return;
+    }
+
+    renderTip(tip);
+  });
+
+  function renderTip(tip) {
+    const actionsList = tip.actions?.map(action => `<li>${action}</li>`).join('') || '';
+    output.innerHTML = `
+      <h3>${tip.title}</h3>
+      <p>${tip.tip}</p>
+      ${actionsList ? `<ul>${actionsList}</ul>` : ''}
+    `;
+  }
+
+  function showMessage(message) {
+    output.innerHTML = `<p class="muted">${message}</p>`;
+  }
+
+  async function loadInsights() {
+    try {
+      const response = await fetch('assets/data/ai-insights.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      insights = Array.isArray(data) ? data : [];
+    } catch (err) {
+      console.error('Failed to load AI insights', err);
+      loadError = true;
+      showMessage('Unable to load AI tips. Check your connection and refresh.');
+    }
+  }
+})();
 // 4) Collapsible project "More details"
 (function collapsibleDetails() {
   document.querySelectorAll('.details-toggle').forEach(btn => {

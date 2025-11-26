@@ -77,6 +77,12 @@
 - Uses `data-date` metadata plus card titles to reorder DOM nodes without losing event bindings.
 - Sorting runs alongside filters/search/favorites, ensuring complex state combinations remain predictable.
 
+### AI Career Coach Feature
+- Added `assets/data/ai-insights.json`, a set of curated action plans authored with AI tools (ChatGPT) and stored locally.
+- UI contains selects for **focus** (showcase, network, learn) and **time** (short/long), plus a CTA button.
+- JavaScript fetches the JSON dataset at runtime, filters it by the visitor's selections, and renders a title, description, and actionable list.
+- Includes `aria-live` output messaging plus fallback states for validation errors or failed fetches (e.g., offline mode).
+
 ### Performance & Accessibility
 - Added a `Skip to main content` link before the header for screen-reader/keyboard navigation.
 - Project images include `loading="lazy"` and `decoding="async"` attributes to defer work until needed.
@@ -95,9 +101,10 @@
 |------|---------|
 | `index.html` | Added GitHub section markup, nav anchor, and control elements |
 | `css/styles.css` | Added utility classes, spinner animation, GitHub + favorites + sorting styles |
-| `js/script.js` | Implemented GitHub fetch/caching/sorting logic, retry handling, favorites persistence/filtering, and project sorting |
+| `js/script.js` | Implemented GitHub fetch/caching/sorting logic, retry handling, favorites persistence/filtering, project sorting, and AI coach |
+| `assets/data/ai-insights.json` | AI-authored action plans consumed by the coach feature |
 | `README.md` | Documented Assignment 3 objective, features, and manual testing plan |
-| `docs/testing-plan.md` | Manual verification steps for API, sorting, favorites, accessibility, and performance features |
+| `docs/testing-plan.md` | Manual verification steps for API, sorting, favorites, AI coach, accessibility, and performance features |
 
 ### Testing & Validation
 1. Load the page with DevTools console open — observe spinner and successful card render.
@@ -108,6 +115,7 @@
 6. Favorite/unfavorite projects, enable “Favorites only,” and reload to verify persistence + layered filtering.
 7. Change the Sort dropdown between “Recently updated” and “Alphabetical” while other filters/search states are active to confirm ordering holds.
 8. Tab once to reach the skip link, scroll to ensure images lazy-load, and toggle “Reduce Motion” in the OS/browser to confirm animations stop.
-9. Follow the scenarios captured in `docs/testing-plan.md` to keep consistent evidence for submission.
+9. Trigger the AI Career Coach with different selections, and simulate a blocked dataset request to test the fallback messaging.
+10. Follow the scenarios captured in `docs/testing-plan.md` to keep consistent evidence for submission.
 
 **Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.
