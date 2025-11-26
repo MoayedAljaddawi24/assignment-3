@@ -632,6 +632,15 @@ section { scroll-margin-top: 72px; }
 .coach-heading{
   max-width: 720px;
   margin-bottom: 1.5rem;
+  color: var(--text, #111);
+}
+
+.ai-coach h2{
+  color: var(--text, #111);
+}
+
+.ai-coach .muted{
+  color: color-mix(in srgb, var(--text, #111) 70%, var(--muted, #6b7280) 30%);
 }
 
 .coach-form{
@@ -646,6 +655,7 @@ section { scroll-margin-top: 72px; }
   flex-direction: column;
   gap: 0.4rem;
   font-size: 0.9rem;
+  color: var(--text, #111);
 }
 
 .coach-form select{
@@ -661,6 +671,7 @@ section { scroll-margin-top: 72px; }
   border-radius: var(--radius, 12px);
   padding: 1rem;
   background: color-mix(in srgb, var(--surface, #fff) 94%, var(--primary, #2563eb) 6%);
+  color: var(--text, #111);
 }
 
 .coach-output h3{
