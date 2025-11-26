@@ -159,3 +159,22 @@ Show mastery of external integrations, richer UI state, and improved documentati
 ## Projects
 - **Event Ticket Reservation System** — browse events, reserve tickets, view bookings.
 - **KFUPM Event Hub (In Progress)** — discover, register for, and manage university events.
+
+---
+
+## Deployment
+
+This project is designed to run as a static site, so GitHub Pages is the recommended hosting option.
+
+### GitHub Pages Steps
+1. Push the repository to GitHub (e.g., `MoayedAljaddawi24/assignment-3`).
+2. In the repo settings, open **Pages** → set **Source** to `main` and **Branch** to `/root`.
+3. Wait for the build banner to show, then visit the published URL:  
+   `https://MoayedAljaddawi24.github.io/assignment-3/`
+4. Smoke test using the [Testing Plan](docs/testing-plan.md) to confirm:  
+   - GitHub feed loads correctly.  
+   - Favorites/filter/sort interactions work.  
+   - AI Career Coach fetches tips (or shows fallback).  
+   - Skip link/lazy images behave the same as locally.
+
+> If deploying elsewhere (Netlify, Vercel, etc.), point the root to `index.html` and ensure `assets/` is served statically.

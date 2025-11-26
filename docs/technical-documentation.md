@@ -105,6 +105,7 @@
 | `assets/data/ai-insights.json` | AI-authored action plans consumed by the coach feature |
 | `README.md` | Documented Assignment 3 objective, features, and manual testing plan |
 | `docs/testing-plan.md` | Manual verification steps for API, sorting, favorites, AI coach, accessibility, and performance features |
+| `README.md` — Deployment section | Added GitHub Pages instructions and post-deploy verification checklist |
 
 ### Testing & Validation
 1. Load the page with DevTools console open — observe spinner and successful card render.
@@ -117,5 +118,6 @@
 8. Tab once to reach the skip link, scroll to ensure images lazy-load, and toggle “Reduce Motion” in the OS/browser to confirm animations stop.
 9. Trigger the AI Career Coach with different selections, and simulate a blocked dataset request to test the fallback messaging.
 10. Follow the scenarios captured in `docs/testing-plan.md` to keep consistent evidence for submission.
+11. After deploying to GitHub Pages, repeat the smoke tests on `https://MoayedAljaddawi24.github.io/assignment-3/` to ensure parity with local results.
 
 **Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.
