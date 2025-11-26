@@ -157,6 +157,7 @@ p {
   border-radius: var(--radius, 12px);
   padding: 0.35rem 0.9rem;
   cursor: pointer;
+  color: var(--text, #111);
 }
 
 .filter-btn[aria-pressed="true"]{
@@ -169,6 +170,8 @@ p {
   padding: 0.5rem 0.9rem;
   border-radius: var(--radius, 12px);
   border: 1px solid var(--border, #e5e7eb);
+  color: var(--text, #111);
+  background: var(--surface, #fff);
 }
 
 .favorites-toggle{
@@ -180,6 +183,7 @@ p {
   border-radius: var(--radius, 12px);
   background: var(--surface, #fff);
   font-size: 0.95rem;
+  color: var(--text, #111);
 }
 
 .favorites-toggle input{
@@ -231,15 +235,15 @@ p {
 
 .card h3 {
   margin-bottom: 0.25rem;
-  color: #111;
+  color: var(--text, #111);
 }
 
 .badge {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #2563eb;
-  background: #e8f0ff;
-  border: 1px solid #bfdbfe;
+  color: var(--primary, #2563eb);
+  background: color-mix(in srgb, var(--surface, #fff) 80%, var(--primary, #2563eb) 15%);
+  border: 1px solid color-mix(in srgb, var(--primary, #2563eb) 60%, transparent);
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
   vertical-align: middle;
@@ -257,9 +261,9 @@ p {
 
 .tags li {
   font-size: 0.85rem;
-  color: #374151;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  color: var(--text, #374151);
+  background: color-mix(in srgb, var(--surface, #fff) 85%, var(--primary, #2563eb) 10%);
+  border: 1px solid var(--border, #e5e7eb);
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
 }
@@ -516,6 +520,11 @@ section { scroll-margin-top: 72px; }
   justify-content: space-between;
   gap: 1rem;
   align-items: flex-start;
+  color: var(--text, #111);
+}
+
+.section-heading h2{
+  color: var(--text, #111);
 }
 
 .eyebrow{
@@ -541,7 +550,7 @@ section { scroll-margin-top: 72px; }
   border-radius: var(--radius, 12px);
   border: 1px solid var(--border, #e5e7eb);
   background: var(--surface, #fff);
-  color: inherit;
+  color: var(--text, #111);
 }
 
 .github-status{
