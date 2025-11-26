@@ -137,6 +137,7 @@ Show mastery of external integrations, richer UI state, and improved documentati
 
 ## Documentation
 - `docs/technical-documentation.md` — implementation details per assignment phase
+- `docs/testing-plan.md` — manual test cases for Assignment 3 features
 - `docs/ai-usage-report.md` — how AI tools supported the work and review steps taken
 
 ---
