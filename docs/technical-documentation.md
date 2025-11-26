@@ -1,64 +1,91 @@
 # Technical Documentation
 
+## Assignment 1 — Foundation
+
+**Goal:** deliver a static yet polished personal portfolio.
+
+### Highlights
+- Semantic structure with Hero, About, Projects, and Contact sections.
+- Responsive grid and card layout using CSS flexbox/grid.
+- Sticky header, smooth scrolling, and auto-updating footer year.
+- Theme toggle (dark/light) persisted via `localStorage`.
+- Contact form with browser validation (required fields, email pattern).
+- Performance basics: lightweight assets, lazy-loaded images, concise CSS.
+
+### Files
+- `index.html` — baseline markup and sections.
+- `css/styles.css` — global design system (colors, spacing, typography).
+- `js/script.js` — footer year + theme toggle helpers.
+
 ---
 
-## 🧠 Assignment 1 Summary
+## Assignment 2 — Interactive Enhancements
 
-The first version of the portfolio focused on **static structure and responsive design**.  
-It included:
-- A responsive layout with **Hero**, **About**, **Projects**, and **Contact** sections.
-- A **navigation bar** and **dark/light theme toggle** stored in localStorage.
-- A **contact form** with basic client-side validation.
-- Lazy-loaded images, smooth scrolling, and an automatically updating year.
-- Clear, accessible HTML and semantic elements.
+**Goal:** make the portfolio dynamic with JavaScript-driven UX.
+
+### Dynamic Content
+- Project filter buttons, live search, collapsible “More details,” and empty-state message.
+- Personalized greeting based on time of day and stored visitor name.
+
+### Data Handling
+- Contact form stores the visitor’s name in `localStorage` for reuse in greetings.
+- Quote module uses the Quotable API with spinner, retry button, and error state logging.
+
+### Animation & Feedback
+- Hover states and collapsible transitions driven by CSS.
+- Spinner honors `prefers-reduced-motion`.
+- Toast notifications communicate form success/errors.
+
+### Accessibility
+- ARIA attributes (`aria-pressed`, `aria-expanded`, `aria-controls`, `aria-live`) on interactive elements.
+- Keyboard-focus styles and logical DOM order for navigation.
+
+### Files Modified
+| File | Key Changes |
+|------|-------------|
+| `index.html` | Added greeting, quote, filters/search, collapsible sections, empty state |
+| `css/styles.css` | Added transitions, spinner styles, alerts, motion preferences |
+| `js/script.js` | Implemented filters, API calls, collapsible logic, toast system |
+| `README.md` | Documented new features and instructions |
+
+### Testing
+- Manual verification on Chrome, Firefox, Edge.
+- Disabled JavaScript to confirm graceful degradation of static content.
 
 ---
 
-## 🚀 Assignment 2 Enhancements
+## Assignment 3 — Advanced Functionality
 
-The second phase builds on Assignment 1 by introducing **interactivity, data handling, animations, and AI-assisted improvements**.
+**Goal:** integrate a real external API, expand state management, and document/testing upgrades.
 
-### 1. Dynamic Content
-- Added **filter buttons** and a **live search bar** to filter projects by language or keyword.  
-- Implemented **collapsible project details** (“More details” buttons that expand or hide extra info).  
-- Created an **empty state** (“No projects found”) when no cards match filters.
+### GitHub API Integration
+- **Endpoint:** `https://api.github.com/users/MoayedAljaddawi24/repos?sort=updated&per_page=20`
+- Filters out forks, maps essential fields, and limits display to the latest six repositories.
+- **Controls:** sort dropdown (recent vs. stars), refresh button, retry button shown on error.
+- **Status UX:** spinner + status text (aria-live), cached vs. live messaging, error color state.
+- **Caching:** results stored in `sessionStorage` (10‑minute TTL) to reduce API calls and keep data available offline/rate-limited.
+- **Rendering:** responsive card grid showing repo name, description fallback, language, star count, last updated date, and CTA link.
 
-### 2. Data Handling
-- Personalized **greeting** using localStorage to remember the user’s name from the contact form.  
-- Integrated the **Quotable API** to fetch a random motivational quote on each load.  
-  - Includes **loading spinner**, **timeout**, and **retry** button on failure.
+### UI & State Tweaks
+- Navigation now links to the GitHub section for quick access.
+- Utility classes introduced for shared patterns (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`).
+- Styles respect the existing design tokens (light/dark themes, spacing, radii).
+- Status text toggles an `.error` modifier to improve contrast for failure messages.
 
-### 3. Animation and Transitions
-- Smooth card hover effects and detail-panel transitions using CSS grid row + opacity.  
-- Subtle loading spinner for the quote section.  
-- Uses `prefers-reduced-motion` to respect accessibility settings.
-
-### 4. Error Handling and Feedback
-- Loading, error, and retry states for the API.  
-- Empty results message for filters/search.  
-- Toast-style alerts for form success or validation errors.
-
-### 5. Accessibility and UX
-- ARIA attributes for all interactive controls:  
-  - `aria-pressed` on filter buttons  
-  - `aria-expanded` + `aria-controls` on collapsible details  
-  - `aria-live` for the quote text  
-- Keyboard-friendly and screen-reader-friendly interactions.
-
-### 6. Files Modified
+### Files Modified
 | File | Purpose |
-|------|----------|
-| `index.html` | Added greeting, quote, filters, collapsibles, empty state |
-| `css/styles.css` | Added transitions, spinner, alerts, reduced-motion rules |
-| `js/script.js` | Implemented interactivity, API calls, localStorage, error handling |
-| `README.md` | Updated features and documentation links |
-| `docs/*.md` | Added Assignment 2 documentation sections |
+|------|---------|
+| `index.html` | Added GitHub section markup, nav anchor, and control elements |
+| `css/styles.css` | Added utility classes, spinner animation, GitHub section styles |
+| `js/script.js` | Implemented GitHub fetch/caching/sorting logic and retry handling |
+| `README.md` | Documented Assignment 3 objective, features, and manual testing plan |
 
-### 7. Testing & Performance
-- Tested on Chrome, Firefox, and Edge.  
-- Lightweight vanilla JS (no libraries).  
-- All interactive features degrade gracefully if JavaScript or API fails.
+### Testing & Validation
+1. Load the page with DevTools console open — observe spinner and successful card render.
+2. Toggle sort dropdown to ensure reorder logic works.
+3. Click Refresh and watch the Network tab for the GitHub API call.
+4. Go offline (DevTools) and click Refresh — verify cached data remains and Retry button appears.
+5. Return online, click Retry — confirm new data appears and status updates accordingly.
 
----
+**Result:** The Assignment 3 layer demonstrates real API integration, stateful controls, resilient UX, and updated documentation, satisfying the next stage of the portfolio project.
 
-✅ **Result:** The portfolio now feels dynamic and interactive, demonstrating modern front-end techniques while maintaining accessibility and performance.

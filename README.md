@@ -1,110 +1,112 @@
-# 🌐 Personal Portfolio — Assignment 1 & 2
+# Personal Portfolio — Assignments 1‑3
 
-A personal, responsive portfolio website developed as part of the web development course.  
-This document combines details from **Assignment 1 (foundation)** and **Assignment 2 (interactive enhancements)**.
+A personal, responsive portfolio website developed across three course assignments.  
+This README covers the **foundation (Assignment 1)**, the **interactive layer (Assignment 2)**, and the **advanced/API enhancements (Assignment 3)**.
 
 ---
 
-## 🧠 Assignment 1 — Foundation
+## Assignment 1 — Foundation
 
-### 🎯 Objective
+### Objective
 Build a clean, accessible, and responsive personal portfolio using **HTML**, **CSS**, and **vanilla JavaScript**.
 
-### ✨ Features Implemented
+### Features
 - Required sections: **Hero**, **About**, **Projects**, **Contact**
 - Responsive grid and card layout
 - Sticky header with smooth scrolling
-- **Dark/Light theme toggle** (stored in localStorage)
-- **Contact form** with basic validation
+- **Dark/Light theme toggle** (stored in `localStorage`)
+- Contact form with basic validation
 - Auto-updating year in the footer
 - Lazy-loaded images and basic SEO meta description
 
 ---
 
-## 🚀 Assignment 2 – Interactive Features
+## Assignment 2 — Interactive Features
 
-### 🎯 Objective
-Enhance the existing personal portfolio from Assignment 1 by adding **dynamic content**, **data handling**, **animations**, and **AI-assisted improvements**.
+### Objective
+Enhance the Assignment 1 portfolio with dynamic content, data handling, animations, and AI-assisted improvements.
 
+### Highlights
+- **Dynamic content**: Project filters, live search, collapsible “More details,” and personalized greeting
+- **Data handling**: LocalStorage-powered greeting + contact form persistence, Quotable API quote with loading/error/retry states
+- **Animations**: Smooth card/section transitions, spinner, and `prefers-reduced-motion` support
+- **Error handling & feedback**: Empty-state messaging, toast notifications, resilient API handling
+- **Accessibility & UX**: ARIA attributes (`aria-pressed`, `aria-expanded`, `aria-live`), keyboard-friendly interactions, improved color contrast
+- **AI assistance**: ChatGPT + GitHub Copilot for ideation and refactoring (documented in `docs/ai-usage-report.md`)
 
-### 🧩 New Interactive Features
-
-#### 🔹 Dynamic Content
-- Added **filter buttons** and **live search** for projects  
-- Implemented **collapsible “More Details”** sections for each project  
-- Created a **personalized greeting** that changes with time of day and stored username  
-
-#### 🔹 Data Handling
-- Used **LocalStorage** to remember the user’s name from the contact form  
-- Integrated **Quotable API** to fetch motivational quotes  
-  - Includes a **loading spinner**, **error message**, and **retry** button when the request fails  
-
-#### 🔹 Animation & Transitions
-- Smooth hover and open/close animations on cards  
-- Animated loading spinner for the quote section  
-- Honors the `prefers-reduced-motion` accessibility setting  
-
-#### 🔹 Error Handling & Feedback
-- Loading / Error / Retry states for API calls  
-- “No projects found” message for filters and search  
-- Toast-style **success** / **error** notifications for form submission  
-
-#### 🔹 Accessibility & UX
-- Improved accessibility with ARIA attributes:  
-  - `aria-pressed` on filter buttons  
-  - `aria-expanded` + `aria-controls` on collapsibles  
-  - `aria-live` for dynamic quote updates  
-- Fully keyboard-friendly and screen-reader-accessible  
-
-#### 🔹 AI Enhancements
-- Utilized **ChatGPT (GPT-5)** and **GitHub Copilot** for:  
-  - Planning new feature structure  
-  - Improving accessibility patterns  
-  - Drafting documentation and refining JavaScript logic  
-- All AI outputs were reviewed, edited, and documented ethically  
-
----
-
-### ⚙️ Technologies Used
+### Technologies Used
 - **HTML5**, **CSS3**, **JavaScript (ES6+)**
 - **LocalStorage API**
 - **Fetch API**
-- **ARIA Accessibility Standards**
-- **AI Tools:** ChatGPT (GPT-5), GitHub Copilot
+- **ARIA accessibility patterns**
+- **AI tools**: ChatGPT (GPT‑5), GitHub Copilot
+
+### File Structure
+```
+assignment-3/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── script.js
+├── assets/
+│   └── images/
+└── docs/
+    ├── ai-usage-report.md
+    └── technical-documentation.md
+```
 
 ---
 
-### 📁 File Structure
-assignment-2/
-├─ index.html
-├─ css/
-│  └─ styles.css
-├─ js/
-│  └─ script.js
-├─ assets/
-│  └─ images/
-│     ├─ reservation.jpg
-│     └─ kfupm-event-hub.jpg
-└─ docs/
-   ├─ ai-usage-report.md
-   └─ technical-documentation.md
+## Assignment 3 — Advanced Functionality
 
+### Objective
+Show mastery of external integrations, richer UI state, and improved documentation/testing on top of the Assignment 2 baseline.
 
-## 🚀 Run locally
-1. Clone this repo
+### New Features
+
+#### Live GitHub Activity Feed
+- Dedicated “Latest GitHub Activity” section pulls repositories from **@MoayedAljaddawi24** via the GitHub REST API.
+- Supports **sorting** (recently updated vs. most stars), manual **refresh**, and **retry** controls.
+- Resilient UX: cached results (`sessionStorage`, 10‑minute window), loading spinner, friendly status text, and retry button for failures.
+- Repository cards display description, language, star count, last updated date, and a CTA to open the repo in a new tab.
+
+#### State & UX Enhancements
+- Global navigation now links to the GitHub section for faster access.
+- Controls maintain their state; cached responses keep the UI usable while offline or rate-limited.
+- Shared utility styles (`.btn-sm`, `.visually-hidden`, `.muted`, `.eyebrow`, `.spinner`) keep the new section consistent with the rest of the site.
+
+### Testing the GitHub Integration
+1. Open `index.html` in a modern browser with DevTools console visible.
+2. Scroll to **Latest GitHub Activity**:
+   - Confirm the spinner and “Loading repositories…” status appear, then repository cards render.
+   - Switch the sort dropdown to “Most stars” and verify the order updates.
+   - Click **Refresh** and monitor the Network tab for the GitHub API request.
+3. Disable your network (or use DevTools offline mode) and press **Refresh**:
+   - Existing cards stay visible; status indicates cached usage or shows an error, and the **Retry** button appears.
+4. Re-enable the network, click **Retry**, and confirm fresh data loads without reloading the page.
+
+> Tip: If the GitHub API rate-limits you, wait a minute or supply a personal token via the console by setting `sessionStorage.githubToken`.
+
+---
+
+## Run Locally
+1. Clone the repository:
    ```bash
-   git clone https://github.com/MoayedAljaddawi24/assignment-2.git
-   cd assignment-2
+   git clone https://github.com/MoayedAljaddawi24/assignment-3.git
+   cd assignment-3
    ```
-2. Open `index.html` in your browser.
-   ```bash
+2. Open `index.html` directly in your browser or use a local server (e.g., VS Code Live Server).
 
+---
 
-## 📄 Docs
-- `docs/technical-documentation.md`
-- `docs/ai-usage-report.md`
+## Documentation
+- `docs/technical-documentation.md` — implementation details per assignment phase
+- `docs/ai-usage-report.md` — how AI tools supported the work and review steps taken
 
+---
 
-## 🧩 Projects
+## Projects
 - **Event Ticket Reservation System** — browse events, reserve tickets, view bookings.
 - **KFUPM Event Hub (In Progress)** — discover, register for, and manage university events.
+
